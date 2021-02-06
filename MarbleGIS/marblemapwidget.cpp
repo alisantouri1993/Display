@@ -29,6 +29,8 @@ void MarbleMapWidget::init()
         if (floatItem->nameId() == "navigation"|| floatItem->nameId() == "license")
             floatItem->hide();
     }
+    this->inputHandler()->setMouseButtonPopupEnabled(Qt::RightButton , false);
+    this->inputHandler()->setInertialEarthRotationEnabled(false);
 }
 
 
@@ -59,16 +61,21 @@ void MarbleMapWidget::connectObjects()
         QStringList posList = Position.split(",");
         QString lblString = QString("Longitude(%1) - Latitude(%2)").arg(convertDMS2DD(posList.first())).arg(convertDMS2DD(posList.last()));
         ui->labelGeoData->setText(lblString);
+
+        centerLong = centerLongitude();
+        centerLat  = centerLatitude();
+
+        qDebug() << "Center Long :" << centerLongitude() << "Center Lat :" << centerLatitude();
     });
 
-    connect(this , &MarbleMapWidget::mouseClickGeoPosition,this , [this](qreal lon, qreal lat, Marble::GeoDataCoordinates::Unit)
-    {
-        //Unit is Radian
+//    connect(this , &MarbleMapWidget::mouseClickGeoPosition,this , [this](qreal lon, qreal lat, Marble::GeoDataCoordinates::Unit)
+//    {
+//        //Unit is Radian
 
-        double lon_degree = lon * RAD2DEG_COEF;
-        double lat_degree = lat * RAD2DEG_COEF;
+//        double lon_degree = lon * RAD2DEG_COEF;
+//        double lat_degree = lat * RAD2DEG_COEF;
 
-        qDebug() << lon_degree << "---" << lat_degree;
-    });
+//        qDebug() << lon_degree << "---" << lat_degree;
+//    });
 }
 

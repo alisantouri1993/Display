@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <MarbleWidget.h>
 #include <AbstractFloatItem.h>
+#include <MarbleWidgetInputHandler.h>
 
 #define RAD2DEG_COEF (180.0/M_PI)
 
@@ -17,7 +18,7 @@ class MarbleMapWidget : public Marble::MarbleWidget
 
 public:
     MarbleMapWidget(QWidget *parent = nullptr);
-    ~MarbleMapWidget();
+    ~MarbleMapWidget() override;
 
 private:
     void init();
@@ -26,5 +27,8 @@ private:
     QString convertDMS2DD(const QString& pos);
 private:
     Ui::MarbleMapWidget *ui;
+
+    qreal centerLong = 0;
+    qreal centerLat  = 0;
 };
 #endif // MARBLEMAPWIDGET_H
